@@ -7,6 +7,14 @@ from blog.forms import CommentForm
 # Create your views here.
 def index(request):
     posts = Post.objects.filter(published_at__lte=timezone.now())
+    ''' 
+    DATABASE QUERY OPTIMISATION...USE ONLY IF A PERMANENT QUERY SET
+    #.select_related("author")
+    #.defer("created_at", "modified_at")
+    #or the oppossite use 
+    #.only("title", "summary", "content", "author", "published_at", "slug")
+    '''
+
     return render(request, "blog/index.html", {"posts": posts})
 
 
@@ -32,3 +40,7 @@ def post_detail(request, slug):
 
     return render(request, "blog/post-detail.html", {"post": post, "comment_form": comment_form}
 )
+
+def get_ip(request):
+  from django.http import HttpResponse
+  return HttpResponse(request.META['REMOTE_ADDR'])
