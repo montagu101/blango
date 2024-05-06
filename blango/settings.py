@@ -48,7 +48,10 @@ INSTALLED_APPS = [
     'blog',  
     'crispy_forms',  
     'crispy_bootstrap5',  
+    'blango_auth', 
 ]
+
+AUTH_USER_MODEL = "blango_auth.User"
 
 
 MIDDLEWARE = [
