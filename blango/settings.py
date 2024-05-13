@@ -8,13 +8,13 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """  
 import os  
 from pathlib import Path  
-from configurations import Configuration 
-from configurations import values  
+#from configurations import Configuration 
+#from configurations import values  
 
-class Dev(Configuration):  
+#class Dev(Configuration):  
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.  
-    BASE_DIR = Path(__file__).resolve().parent.parent  
+BASE_DIR = Path(__file__).resolve().parent.parent  
 
 
 # Quick-start development settings - unsuitable for production  
@@ -22,19 +22,22 @@ class Dev(Configuration):
 # SECURITY WARNING: keep the secret key used in production  secret! 
  
 SECRET_KEY = 'django-insecure-&!=9y436&^-bc$qia-mxngyf&xx)@ct)8lu@)=qxg_07-=z01w'  
-# SECURITY WARNING: don't run with debug turned on in  
-production!  
+# SECURITY WARNING: don't run with debug turned on in  production!  
 DEBUG = True  
 ALLOWED_HOSTS = ['*']  
 
 
-X_FRAME_OPTIONS = 'ALLOW-FROM ' +  os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'  
-CSRF_COOKIE_SAMESITE = None  
-CSRF_TRUSTED_ORIGINS = [os.environ.get('CODIO_HOSTNAME') +  '-8000.codio.io']  
-CSRF_COOKIE_SECURE = True  
-SESSION_COOKIE_SECURE = True  
-CSRF_COOKIE_SAMESITE = 'None'  
-SESSION_COOKIE_SAMESITE = 'None'  
+AUTH_USER_MODEL = "blango_auth.User"
+
+
+
+#X_FRAME_OPTIONS = 'ALLOW-FROM ' +  os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'  
+#CSRF_COOKIE_SAMESITE = None  
+#CSRF_TRUSTED_ORIGINS = [os.environ.get('CODIO_HOSTNAME') +  '-8000.codio.io']  
+#CSRF_COOKIE_SECURE = True  
+#SESSION_COOKIE_SECURE = True  
+#CSRF_COOKIE_SAMESITE = 'None'  
+#SESSION_COOKIE_SAMESITE = 'None'  
 
 
 # Application definition  
@@ -47,18 +50,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',  
     'blog',  
     'crispy_forms',  
-    'crispy_bootstrap5',  
-    'blango_auth', 
+    'crispy_bootstrap5',
+    'blango_auth',  
+    'rest_framework',
 ]
-
-AUTH_USER_MODEL = "blango_auth.User"
 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',  
     'django.contrib.sessions.middleware.SessionMiddleware', 
     'django.middleware.common.CommonMiddleware', 
-    #'django.middleware.csrf.CsrfViewMiddleware',  
+    'django.middleware.csrf.CsrfViewMiddleware',  
     'django.contrib.auth.middleware.AuthenticationMiddleware', 
     'django.contrib.messages.middleware.MessageMiddleware',
 
@@ -69,7 +71,7 @@ not make these changes to a project you plan on making available on the
 internet.
 '''
 
-ROOT_URLCONF = 'blango.urls'
+ROOT_URLCONF = 'blango3.urls'
 
 
 TEMPLATES = [
@@ -90,7 +92,7 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = 'blango.wsgi.application'  
+WSGI_APPLICATION = 'blango3.wsgi.application'  
 
 
 # Database  
@@ -127,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/  
 
 LANGUAGE_CODE = 'en-us'  
-TIME_ZONE = values.Value("UTC")  
+TIME_ZONE = ("UTC")  
 USE_I18N = True  
 USE_L10N = True  
 USE_TZ = True  
