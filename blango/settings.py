@@ -6,143 +6,155 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see  
 https://docs.djangoproject.com/en/3.2/ref/settings/  
 """  
+
+
+
 import os  
 from pathlib import Path  
-#from configurations import Configuration 
-#from configurations import values  
+from configurations import Configuration 
+from configurations import values  
 
-#class Dev(Configuration):  
+class Dev(Configuration):  
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.  
-BASE_DIR = Path(__file__).resolve().parent.parent  
+  BASE_DIR = Path(__file__).resolve().parent.parent  
 
 
-# Quick-start development settings - unsuitable for production  
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/  
-# SECURITY WARNING: keep the secret key used in production  secret! 
- 
-SECRET_KEY = 'django-insecure-&!=9y436&^-bc$qia-mxngyf&xx)@ct)8lu@)=qxg_07-=z01w'  
-# SECURITY WARNING: don't run with debug turned on in  production!  
-DEBUG = True  
-ALLOWED_HOSTS = ['*']  
+  # Quick-start development settings - unsuitable for production  
+  # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/  
+  # SECURITY WARNING: keep the secret key used in production  secret! 
+  
+  SECRET_KEY = 'django-insecure-&!=9y436&^-bc$qia-mxngyf&xx)@ct)8lu@)=qxg_07-=z01w'  
+  # SECURITY WARNING: don't run with debug turned on in  production!  
+  DEBUG = True  
+  ALLOWED_HOSTS = ['*']  
 
 
-AUTH_USER_MODEL = "blango_auth.User"
+  AUTH_USER_MODEL = "blango_auth.User"
 
 
 
-#X_FRAME_OPTIONS = 'ALLOW-FROM ' +  os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'  
-#CSRF_COOKIE_SAMESITE = None  
-#CSRF_TRUSTED_ORIGINS = [os.environ.get('CODIO_HOSTNAME') +  '-8000.codio.io']  
-#CSRF_COOKIE_SECURE = True  
-#SESSION_COOKIE_SECURE = True  
-#CSRF_COOKIE_SAMESITE = 'None'  
-#SESSION_COOKIE_SAMESITE = 'None'  
+  X_FRAME_OPTIONS = 'ALLOW-FROM ' +  os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'  
+  CSRF_COOKIE_SAMESITE = None  
+  CSRF_TRUSTED_ORIGINS = [os.environ.get('CODIO_HOSTNAME') +  '-8000.codio.io']  
+  CSRF_COOKIE_SECURE = True  
+  SESSION_COOKIE_SECURE = True  
+  CSRF_COOKIE_SAMESITE = 'None'  
+  SESSION_COOKIE_SAMESITE = 'None'  
 
 
-# Application definition  
-INSTALLED_APPS = [ 
-    'django.contrib.admin',  
-    'django.contrib.auth',  
-    'django.contrib.contenttypes',  
-    'django.contrib.sessions',  
-    'django.contrib.messages',  
-    'django.contrib.staticfiles',  
-    'blog',  
-    'crispy_forms',  
-    'crispy_bootstrap5',
-    'blango_auth',  
-    'rest_framework',
-]
+  # Application definition  
+  INSTALLED_APPS = [ 
+      'django.contrib.admin',  
+      'django.contrib.auth',  
+      'django.contrib.contenttypes',  
+      'django.contrib.sessions',  
+      'django.contrib.messages',  
+      'django.contrib.staticfiles',  
+      'blog',  
+      'crispy_forms',  
+      'crispy_bootstrap5',
+      'blango_auth',  
+      'rest_framework',
+      'rest_framework.authtoken',
+  ]
 
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',  
-    'django.contrib.sessions.middleware.SessionMiddleware', 
-    'django.middleware.common.CommonMiddleware', 
-    'django.middleware.csrf.CsrfViewMiddleware',  
-    'django.contrib.auth.middleware.AuthenticationMiddleware', 
-    'django.contrib.messages.middleware.MessageMiddleware',
+  MIDDLEWARE = [
+      'django.middleware.security.SecurityMiddleware',  
+      'django.contrib.sessions.middleware.SessionMiddleware', 
+      'django.middleware.common.CommonMiddleware', 
+      #'django.middleware.csrf.CsrfViewMiddleware',  
+      'django.contrib.auth.middleware.AuthenticationMiddleware', 
+      'django.contrib.messages.middleware.MessageMiddleware',
 
-]
-'''
-Reminder: MIDDLEWARE COMMENT OUT these changes only apply to working with Django on Codio. Do
-not make these changes to a project you plan on making available on the
-internet.
-'''
+  ]
+  '''
+  Reminder: MIDDLEWARE COMMENT OUT these changes only apply to working with Django on Codio. Do
+  not make these changes to a project you plan on making available on the
+  internet.
+  '''
 
-ROOT_URLCONF = 'blango3.urls'
-
-
-TEMPLATES = [
-    {
-        'BACKEND':  'django.template.backends.django.DjangoTemplates', 
-        "DIRS": [BASE_DIR / "templates"],  
-        'APP_DIRS': True,  
-        'OPTIONS': { 
-            'context_processors': [  
-                'django.template.context_processors.debug', 
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',  
-                'django.contrib.messages.context_processors.messages', 
-                ],  
-            }, 
-                
-    },  
-]
+  ROOT_URLCONF = 'blango.urls'
 
 
-WSGI_APPLICATION = 'blango3.wsgi.application'  
+  TEMPLATES = [
+      {
+          'BACKEND':  'django.template.backends.django.DjangoTemplates', 
+          "DIRS": [BASE_DIR / "templates"],  
+          'APP_DIRS': True,  
+          'OPTIONS': { 
+              'context_processors': [  
+                  'django.template.context_processors.debug', 
+                  'django.template.context_processors.request',
+                  'django.contrib.auth.context_processors.auth',  
+                  'django.contrib.messages.context_processors.messages', 
+                  ],  
+              }, 
+                  
+      },  
+  ]
 
 
-# Database  
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases  
-
-DATABASES = { 
-    'default': {  
-        'ENGINE': 'django.db.backends.sqlite3', 
-        'NAME': BASE_DIR / 'db.sqlite3',  
-        }
-    }
+  WSGI_APPLICATION = 'blango.wsgi.application'  
 
 
-# Password validation  
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators  
+  # Database  
+  # https://docs.djangoproject.com/en/3.2/ref/settings/#databases  
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+  DATABASES = { 
+      'default': {  
+          'ENGINE': 'django.db.backends.sqlite3', 
+          'NAME': BASE_DIR / 'db.sqlite3',  
+          }
+      }
 
 
-# Internationalization  
-# https://docs.djangoproject.com/en/3.2/topics/i18n/  
+  # Password validation  
+  # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators  
 
-LANGUAGE_CODE = 'en-us'  
-TIME_ZONE = ("UTC")  
-USE_I18N = True  
-USE_L10N = True  
-USE_TZ = True  
+  AUTH_PASSWORD_VALIDATORS = [
+      {
+          'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+      },
+      {
+          'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+      },
+      {
+          'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+      },
+      {
+          'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+      },
+  ]
 
-# Static files (CSS, JavaScript, Images)  
-# https://docs.djangoproject.com/en/3.2/howto/static-files/  
 
-STATIC_URL = '/static/'  
+  # Internationalization  
+  # https://docs.djangoproject.com/en/3.2/topics/i18n/  
 
-# Default primary key field type  
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field  
+  LANGUAGE_CODE = 'en-us'  
+  TIME_ZONE = ("UTC")  
+  USE_I18N = True  
+  USE_L10N = True  
+  USE_TZ = True  
+
+  # Static files (CSS, JavaScript, Images)  
+  # https://docs.djangoproject.com/en/3.2/howto/static-files/  
+
+  STATIC_URL = '/static/'  
+
+  # Default primary key field type  
+  # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field  
 
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"  
-CRISPY_TEMPLATE_PACK = "bootstrap5" 
+  DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  
+  CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"  
+  CRISPY_TEMPLATE_PACK = "bootstrap5" 
+
+  REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+      "rest_framework.authentication.BasicAuthentication",
+      "rest_framework.authentication.SessionAuthentication",
+      "rest_framework.authentication.TokenAuthentication",
+    ]
+  }
