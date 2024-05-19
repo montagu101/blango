@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-import debug_toolbar
+#import debug_toolbar
 import blog.views
 import blango_auth.views
 
@@ -29,8 +29,10 @@ urlpatterns = [
     path("api/v1/", include("blog.api.urls")),
 ]
 
+
+"""
 if settings.DEBUG:
     urlpatterns += [
         path("__debug__/", include(debug_toolbar.urls)),
     ]
-
+"""
