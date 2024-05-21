@@ -164,9 +164,9 @@ class Dev(Configuration):
     ],
   }
 
-    SWAGGER_SETTINGS = {
-        "SECURITY_DEFINITIONS": {
-            "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
-            "Basic": {"type": "basic"},
-        }
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
+        "Basic": {"type": "basic"},
     }
+}
