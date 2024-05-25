@@ -4,7 +4,8 @@ from django.utils import timezone
 from datetime import timedelta
 from django.http import Http404
 
-
+#adding reference to filters.py
+from blog.api.filters import PostFilterSet
 
 #caching imports
 from django.utils.decorators import method_decorator
@@ -43,6 +44,9 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
 
 """
 class PostViewSet(viewsets.ModelViewSet):
+    #removing and replacing to use filters.py: filterset_fields = ["author", "tags"]
+    filterset_class = PostFilterSet
+    ordering_fields = ["published_at", "author", "title", "slug"]
     permission_classes = [AuthorModifyOrReadOnly | IsAdminUserForObject]
     queryset = Post.objects.all()
 
@@ -103,6 +107,17 @@ class PostViewSet(viewsets.ModelViewSet):
         if request.user.is_anonymous:
             raise PermissionDenied("You must be logged in to see which Posts are yours")
         posts = self.get_queryset().filter(author=request.user)
+        
+        
+        #pagination starts
+        page = self.paginate_queryset(posts)
+
+        if page is not None:
+            serializer = PostSerializer(page, many=True, context={"request": request})
+            return self.get_paginated_response(serializer.data)
+
+        #pagination ends
+        
         serializer = PostSerializer(posts, many=True, context={"request": request})
         return Response(serializer.data)
 
@@ -140,6 +155,19 @@ class TagViewSet(viewsets.ModelViewSet):
     @action(methods=["get"], detail=True, name="Posts with the Tag")
     def posts(self, request, pk=None):
         tag = self.get_object()
+
+        #paginaton starts here
+
+        page = self.paginate_queryset(tag.posts)
+        if page is not None:
+            post_serializer = PostSerializer(
+                page, many=True, context={"request": request}
+            )
+            return self.get_paginated_response(post_serializer.data)
+            
+        #pagination ends here
+
+
         post_serializer = PostSerializer(
             tag.posts, many=True, context={"request": request}
         )
@@ -162,3 +190,4 @@ class TagViewSet(viewsets.ModelViewSet):
 """
 https://arieldomino-jargontarget-8000.codio.io/api/v1/tags/1/
 """
+

@@ -58,6 +58,7 @@ class Dev(Configuration):
       'rest_framework',
       'rest_framework.authtoken',
       'drf_yasg',
+      'django_filters',
   ]
 
 
@@ -176,6 +177,17 @@ class Dev(Configuration):
       "user_sustained": "5000/day",
       "user_burst": "100/minute",
     },
+
+#pagination
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 100,
+
+
+#extending with django filters for rest rest_framework
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.OrderingFilter",
+    ],
   
   }
 
