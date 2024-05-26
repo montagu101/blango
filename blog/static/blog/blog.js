@@ -1,3 +1,27 @@
+/*this is the fetch and react hooks
+
+['/api/v1/posts/', '/', '/abadurl/'].forEach(url => {
+  fetch(url).then(response => {
+    if (response.status !== 200) {
+      throw new Error('Invalid status from server: ' + response.statusText)
+    }
+
+    return response.json()
+  }).then(data => {
+    // do something with data, for example
+    console.log(data)
+  }).catch(e => {
+    console.error(e)
+  })
+})
+
+*/
+
+
+
+//this is the post-table code, do not remove
+//this is the post-table code, do not remove
+
 class PostRow extends React.Component {
   render () {
     const post = this.props.post
@@ -24,7 +48,41 @@ class PostRow extends React.Component {
 }
 
 class PostTable extends React.Component {
+
   state = {
+    dataLoaded: false,
+    data: null
+  }
+
+  componentDidMount () {
+    fetch(this.props.url).then(response => {
+
+      if (response.status !== 200) {
+        throw new Error('Invalid status from server: ' + response.statusText)
+      }
+
+      return response.json()
+    }).then(data => {
+      this.setState({
+        dataLoaded: true,
+        data: data
+      })
+    }).catch(e => {
+      console.error(e)
+      this.setState({
+        dataLoaded: true,
+        data: {
+          results: []
+        }
+      })
+    })
+  }
+
+
+
+
+
+  /*state = {
     dataLoaded: true,
     data: {
       results: [
@@ -43,7 +101,7 @@ class PostTable extends React.Component {
         }
       ]
     }
-  }
+  }*/
 
   render () {
     let rows
@@ -77,10 +135,16 @@ class PostTable extends React.Component {
       </tbody>
     </table>
   }
+
 }
+
+
 
 const domContainer = document.getElementById('react_root')
 ReactDOM.render(
-  React.createElement(PostTable),
+  React.createElement(
+    PostTable,
+    {url: postListUrl}
+  ),
   domContainer
 )
