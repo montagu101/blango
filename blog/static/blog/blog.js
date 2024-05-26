@@ -1,4 +1,53 @@
 
+
+//REACTJS CODE STARTS HERE
+class ClickButton extends React.Component {
+  state = {
+    wasClicked: false
+  }
+
+  handleClick () {
+    this.setState(
+      {wasClicked: true}
+    )
+  }
+
+  render () {
+    let buttonText
+
+    if (this.state.wasClicked)
+      buttonText = 'Clicked!'
+    else
+      buttonText = 'Click Me'
+
+    return React.createElement(
+      'button',
+      {
+        className: 'btn btn-primary mt-2',
+        onClick: () => {
+          this.handleClick()
+        }
+      },
+      buttonText
+    )
+  }
+}
+
+//mount the reactjs code to the html
+const domContainer = document.getElementById('react_root')
+ReactDOM.render(
+  React.createElement(ClickButton),
+  domContainer
+)
+
+
+//REACTJS ENDS HERE
+
+
+
+/*
+ // CONSOLE JAVASCRIPT - BACKEND ONLY STARTS HERE
+
 function resolvedCallback(data) {
   console.log('Resolved with data ' +  data)
 }
@@ -29,7 +78,7 @@ lazyAdd("nan", "alsonan").then(resolvedCallback, rejectedCallback)
 
 
 
-/*
+
 const theNumber = 1
 let yourName = 'Ben'
 
